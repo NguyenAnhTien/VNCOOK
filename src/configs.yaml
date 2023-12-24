@@ -1,11 +1,15 @@
 hyperparamters:
   patience : 4
   batch_size : 128
-  epochs : 30
+  epochs : 3
   learning_rate : 0.001
   model_name : 'resnet50'
-  pretrained : True
+  pretrained : False
 
+hardware:
+  cpus: 32
+  device: 'cuda'
+ 
 data:
   train_dir : '../data/Images/Train'
   val_dir : '../data/Images/Validate'

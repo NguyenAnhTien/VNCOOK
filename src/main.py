@@ -57,9 +57,10 @@ def train(
     train_loader, val_loader, test_loader = define_data_loader(configs,\
                                                             train, valid, test)
     num_classes = len(train.classes)
-    model = Model(num_classes=num_classes, model_name=configs.model_name,\
+    model = Model(device=configs.device, num_classes=num_classes, model_name=configs.model_name,\
                                                 pretrained=configs.pretrained)
     trainer = Trainer(model=model, epochs=configs.epochs,\
+                            learning_rate=configs.learning_rate,
                             patience=configs.patience, device=configs.device,\
                                         train_data_loader=train_loader,\
                                                     val_data_loader=val_loader)
