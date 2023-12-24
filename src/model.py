@@ -7,6 +7,12 @@ from typing import Union
 import torch
 import timm
 
+__all__ = ['Model']
+
+model_urls = {
+    'model' : 'https://huggingface.co/tiennguyen/VNCOOK/blob/main/model-epoch%3D7-val_loss%3D0.8202-val_acc%3D0.7702.pth'
+}
+
 class Model(torch.nn.Module):
     def __init__(
         self,
