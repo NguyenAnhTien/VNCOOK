@@ -51,12 +51,17 @@ class Trainer(object):
             train_loss = epoch_loss / len(self.train_data_loader)
             train_losses.append(train_loss)
             train_accs.append(epoch_acc/total)
-            print(f"Epoch {epoch} train process is finished")
-            print(f"Epoch {epoch} train loss -> {(train_loss):.4f}")
-            print(f"Epoch {epoch} train accuracy -> {(epoch_acc / total):.4f}")
+            print(f"Epoch {epoch}/{self.epochs} train process is finished")
+            print(f"Epoch {epoch}/{self.epochs},\
+                                            ' train loss -> {(train_loss):.4f}")
+            print(f"Epoch {epoch}/{self.epochs},\
+                                ' train accuracy -> {(epoch_acc / total):.4f}")
             val_acc, val_loss = self.validate()
             val_losses.append(val_loss)
             val_accs.append(val_acc)
+            print(f"Epoch {epoch}/{self.epochs} validation is finished")
+            print(f"Epoch {epoch}/{self.epochs} validation loss -> {(val_loss):.4f}")
+            print(f"Epoch {epoch}/{self.epochs}  validation accuracy -> {val_acc:.4f}")
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
                 file_name = f'model-epoch={epoch}'
@@ -69,9 +74,6 @@ class Trainer(object):
                                                                 'Stop training')
                     break
 
-            print(f"Epoch {epoch} validation is finished")
-            print(f"Epoch {epoch} validation loss -> {(val_loss):.4f}")
-            print(f"Epoch {epoch}  validation accuracy -> {val_acc:.4f}")
         self.save_train_fig(train_losses, train_accs, val_losses, val_accs)
 
     def train(
