@@ -8,6 +8,7 @@ import timm
 
 class Model(torch.nn.Module):
     def __init__(
+        self,
         model_name: str='resnet52',
         pretrained: bool=False
     ) -> None:
