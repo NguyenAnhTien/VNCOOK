@@ -40,6 +40,8 @@ class Trainer(object):
     def fit(
        self
     ) -> None:
+        best_val_loss = float('inf')
+        improvement = 0
         train_losses, train_accs = [], []
         val_losses, val_accs = [], []
         for epoch in range(self.epochs):    
@@ -53,6 +55,18 @@ class Trainer(object):
             val_acc, val_loss = self.validate()
             val_losses.append(val_loss)
             val_accs.append(val_acc)
+            if val_loss < best_val_loss:
+                best_val_loss = val_loss
+                file_name = f'model-epoch={epoch}'
+                file_name += '-val_loss={val_loss}-val_acc={val_acc}.pth'
+                torch.save(self.model.state_dict(), file_name)
+            else:
+                improvement += 1
+                if improvement >= self.patience:
+                    print(f'Stable loss for {self.patience} epochs.',\
+                                                                'Stop training')
+                    break
+
             print(f"Epoch {epoch} validation is finished")
             print(f"Epoch {epoch} validation loss -> {(val_loss):.4f}")
             print(f"Epoch {epoch}  validation accuracy -> {val_acc:.4f}")
