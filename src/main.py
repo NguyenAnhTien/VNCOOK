@@ -56,7 +56,9 @@ def train(
     train, valid, test = load_data(configs, transforms)
     train_loader, val_loader, test_loader = define_data_loader(configs,\
                                                             train, valid, test)
-    model = Model()
+    num_classes = len(train.classes)
+    model = Model(num_classes=num_classes, model_name=configs.model_name,\
+                                                pretrained=configs.pretrained)
     trainer = Trainer(model=model, epochs=configs.epochs,\
                             patience=configs.patience, device=configs.device,\
                                         train_data_loader=train_loader,\
