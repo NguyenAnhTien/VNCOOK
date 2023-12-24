@@ -2,15 +2,26 @@
 @author : Tien Nguyen
 @date   : 2023-Dec-23
 """
-
+import random
 import argparse
 
+import numpy
+import torch
 from torch.utils.data import DataLoader
 import torchvision
 
 from model import Model
 from trainer import Trainer
 from configs import Configurer
+
+def set_seed(
+    seed: int
+) -> None:
+    random.seed(seed)
+    numpy.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
 def define_trainsforms():
     transforms = torchvision.transforms.Compose(
@@ -74,5 +85,6 @@ if __name__ == '__main__':
     parser.add_argument('--command', type=str, default='True',\
                                                     help='command: train, test')
     args = parser.parse_args()
+    set_seed(2023)
     configs = Configurer(args.configs)
     eval(args.command)(args, configs)
