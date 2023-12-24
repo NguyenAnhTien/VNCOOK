@@ -5,6 +5,8 @@
 from typing import Union
 from tqdm import tqdm
 
+import matplotlib.pyplot as plt
+
 import torch
 from torch.cuda.amp import autocast
 from torch.cuda.amp import GradScaler
@@ -70,6 +72,7 @@ class Trainer(object):
             print(f"Epoch {epoch} validation is finished")
             print(f"Epoch {epoch} validation loss -> {(val_loss):.4f}")
             print(f"Epoch {epoch}  validation accuracy -> {val_acc:.4f}")
+        self.save_train_fig(train_losses, train_accs, val_losses, val_accs)
 
     def train(
        self
@@ -117,3 +120,31 @@ class Trainer(object):
             val_loss = val_epoch_loss / len(self.val_data_loader)
 
             return val_acc, val_loss
+
+    def save_train_fig(
+        self,
+        train_losses,
+        train_accs,
+        val_losses,
+        val_accs
+    ) -> None:
+        plt.figure(figsize=(50, 40))
+        plt.plot(train_losses, label='Training loss', linewidth=20)
+        plt.plot(val_losses, label='Validation loss', linewidth=20)
+        plt.xlabel('Epochs', fontsize=60)
+        plt.ylabel('Loss', fontsize=60)
+        plt.legend(fontsize=60)
+        plt.xticks(fontsize=60)
+        plt.yticks(fontsize=60)
+        plt.savefig('train.png')
+
+        plt.figure(figsize=(50, 40))
+        # plot the training and validation accuracy
+        plt.plot(train_accs, label='Training accuracy', linewidth=20)
+        plt.plot(val_accs, label='Validation accuracy', linewidth=20)
+        plt.xlabel('Epochs', fontsize=60)
+        plt.ylabel('Accuracy', fontsize=60)
+        plt.legend(fontsize=60)
+        plt.xticks(fontsize=60)
+        plt.yticks(fontsize=60)
+        plt.savefig("val.png")
