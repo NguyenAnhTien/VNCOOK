@@ -1,10 +1,11 @@
 hyperparamters:
   patience : 4
   batch_size : 128
-  epochs : 3
+  epochs : 30
   learning_rate : 0.001
-  model_name : 'resnet50'
-  pretrained : False
+  weight_decay : 0.0
+  model_name : 'inception_v4'
+  pretrained : True
 
 hardware:
   cpus: 32

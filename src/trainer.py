@@ -18,6 +18,7 @@ class Trainer(object):
         device: Union[str, torch.device],
         model: torch.nn.Module,
         learning_rate: float,
+        weight_decay: float,
         train_data_loader,
         val_data_loader,
         patience: int=4,
@@ -26,6 +27,7 @@ class Trainer(object):
         self.device = device
         self.model = model
         self.patience = patience
+        self.weight_decay = weight_decay
         self.learning_rate = learning_rate
         self.train_data_loader = train_data_loader
         self.val_data_loader = val_data_loader
@@ -37,7 +39,7 @@ class Trainer(object):
         self.scaler = GradScaler()
         self.loss = torch.nn.CrossEntropyLoss()
         self.optimizer = torch.optim.Adam(params = self.model.parameters(),\
-                                                        lr=self.learning_rate)
+                                               weight_decay=self.weight_decay, lr=self.learning_rate)
 
     def fit(
        self
