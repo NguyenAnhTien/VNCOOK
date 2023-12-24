@@ -28,7 +28,7 @@ def define_trainsforms():
             [
                 torchvision.transforms.Resize((224,224)),
                 torchvision.transforms.ToTensor(),
-                #torchvision.transforms.Normalize(0.5, 0.5)
+                torchvision.transforms.Normalize(0.5, 0.5)
             ]
         )
     return transforms
