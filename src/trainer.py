@@ -58,7 +58,7 @@ class Trainer(object):
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
                 file_name = f'model-epoch={epoch}'
-                file_name += '-val_loss={val_loss}-val_acc={val_acc}.pth'
+                file_name += f'-val_loss={val_loss}-val_acc={val_acc}.pth'
                 torch.save(self.model.state_dict(), file_name)
             else:
                 improvement += 1
