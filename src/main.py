@@ -26,7 +26,7 @@ def set_seed(
 def define_trainsforms():
     transforms = torchvision.transforms.Compose(
             [
-                torchvision.transforms.Resize((254,254)),
+                torchvision.transforms.Resize((224,224)),
                 torchvision.transforms.ToTensor(),
                 torchvision.transforms.Normalize(0.5, 0.5)
             ]
@@ -72,7 +72,8 @@ def train(
                                                 model_name=configs.model_name,\
                                                 pretrained=configs.pretrained)
     trainer = Trainer(model=model, epochs=configs.epochs,\
-                            learning_rate=configs.learning_rate,
+                            learning_rate=configs.learning_rate,\
+                            weight_decay=configs.weight_decay,
                             patience=configs.patience, device=configs.device,\
                                         train_data_loader=train_loader,\
                                                     val_data_loader=val_loader)
